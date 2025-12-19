@@ -1,6 +1,6 @@
-import { Input } from "./components/input";
-import { Isotipo } from "./components/isotipo";
-import { Recharge } from "./components/recharge";
+import { Input } from "../components/input";
+import { Isotipo } from "../components/isotipo";
+import { Recharge } from "../components/recharge";
 
 function App() {
   return (

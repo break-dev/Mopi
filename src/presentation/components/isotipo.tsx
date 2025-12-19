@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { mixStyle } from "../utils/mix-style";
-import type { ImageProps } from "../html-props";
+import type { ImageProps } from "../utils/html-props";
 import isotipo from "../assets/isotipo.svg";
 
 export const Isotipo = React.forwardRef<HTMLImageElement, ImageProps>(

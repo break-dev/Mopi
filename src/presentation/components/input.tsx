@@ -1,6 +1,6 @@
 import React from "react";
 import { mixStyle } from "../utils/mix-style";
-import type { InputProps } from "../html-props";
+import type { InputProps } from "../utils/html-props";
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
