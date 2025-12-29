@@ -13,21 +13,37 @@ export const Switch = ({ mode, setMode }: SwitchProps) => {
         e.stopPropagation();
         setMode(mode == "audio" ? "video" : "audio");
       }}
-      className="flex flex-row gap-0.5 rounded-full bg-white p-1"
+      className="relative flex w-fit rounded-full bg-white p-1.5 gap-1.5"
     >
-      {/* Music */}
+      {/* Fondo deslizante */}
       <div
-        title="Descargar audio"
-        className={`rounded-full p-1 ${mode == "audio" ? "bg-green-300" : ""}`}
-      >
-        <img src={music} alt="Descargar audio" className="size-5" />
+        className={`
+          absolute self-center size-7 scale-[115%] rounded-full bg-green-300
+          transition-transform duration-300 ease-out
+          ${mode == "video" ? "translate-x-8" : "translate-x-0"}
+        `}
+      />
+
+      {/* Audio */}
+      <div className="relative z-10 flex items-center justify-center rounded-full p-1">
+        <img
+          src={music}
+          alt="Descargar audio"
+          className={`size-5 transition-all duration-100 ease-out opacity-60 ${
+            mode == "audio" && "opacity-100"
+          }`}
+        />
       </div>
+
       {/* Video */}
-      <div
-        title="Descargar video"
-        className={`rounded-full p-1 ${mode == "video" ? "bg-green-300" : ""}`}
-      >
-        <img src={video} alt="Descargar video" className="size-5" />
+      <div className="relative z-10 flex items-center justify-center rounded-full p-1">
+        <img
+          src={video}
+          alt="Descargar video"
+          className={`size-5 transition-all duration-100 ease-out opacity-60 ${
+            mode == "video" && "opacity-100"
+          }`}
+        />
       </div>
     </div>
   );

@@ -18,9 +18,11 @@ function App() {
 
       <div className="flex flex-col gap-6">
         {/* Logo */}
-        <div className="flex flex-row gap-2 items-center mb-2">
-          <Isotipo className="w-7" />
-          <h1 className="font-semibold text-base select-text">Mopi Sound</h1>
+        <div className="flex flex-row items-center mb-2 justify-between">
+          <div className="flex flex-row gap-2 items-center">
+            <Isotipo className="w-9" />
+            <h1 className="font-semibold text-lg select-text">Mopi Sound</h1>
+          </div>
           <Switch mode={mode} setMode={setMode} />
         </div>
 
@@ -40,7 +42,7 @@ function App() {
                 title="Cargar"
                 className="w-min p-2.5 focus:bg-green-400 active:bg-green-500"
               >
-                <Recharge strokeWidth={2.1} className="size-6" />
+                <Recharge strokeWidth={2} className="size-6" />
               </Button>
             </div>
           </div>

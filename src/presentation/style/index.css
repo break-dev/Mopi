@@ -35,9 +35,9 @@
   -webkit-user-select: none;
 }
 
-* {
+/* * {
   transition: transform 0.3s ease-in-out;
-}
+} */
 
 body,
 #root {
