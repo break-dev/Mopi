@@ -1,21 +1,27 @@
+import { useState } from "react";
+import { Button } from "../components/button";
 import { Input } from "../components/input";
 import { Isotipo } from "../components/isotipo";
 import { Recharge } from "../components/recharge";
+import { Switch } from "../components/switch";
 
 function App() {
+  const [mode, setMode] = useState<"audio" | "video">("audio");
+
   return (
     <main
       className="flex flex-col max-sm:gap-14 sm:gap-16
       w-full max-w-[600px] px-10"
     >
-      {/* <Isotipo className="max-sm:w-44 self-center" /> */}
+      {/* Isotipo */}
       <Isotipo className="w-[50dvw] max-w-3xs self-center" />
 
       <div className="flex flex-col gap-6">
         {/* Logo */}
-        <div className="flex flex-row gap-2 items-center mb-1">
+        <div className="flex flex-row gap-2 items-center mb-2">
           <Isotipo className="w-7" />
-          <h1 className="font-semibold text-base">Mopi Sound</h1>
+          <h1 className="font-semibold text-base select-text">Mopi Sound</h1>
+          <Switch mode={mode} setMode={setMode} />
         </div>
 
         {/* Inputs */}
@@ -30,12 +36,12 @@ function App() {
                 placeholder="https://www.youtube.com/..."
                 type="url"
               />
-              <button
-                className="w-min h-full bg-white text-(--dark-primary) p-2.5"
+              <Button
                 title="Cargar"
+                className="w-min p-2.5 focus:bg-green-400 active:bg-green-500"
               >
                 <Recharge strokeWidth={2.1} className="size-6" />
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -48,10 +54,9 @@ function App() {
           </div>
 
           {/* Botón para descargar */}
-          <button title="Descargar" className="bg-white text-(--dark-primary) 
-          font-semibold p-2 mt-2.5">
+          <Button title="Descargar" className="p-2 mt-2.5 font-semibold">
             Descargar
-          </button>
+          </Button>
         </div>
       </div>
     </main>
