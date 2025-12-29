@@ -8,7 +8,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <input
         type={type}
         className={mixStyle(
-          `w-full bg-(--dark-secondary) px-3 py-2.5`,
+          `w-full bg-(--dark-secondary) px-3 py-2.5 focus:outline-2 
+          focus:outline-solid focus:outline-(--light-secondary) rounded-md`,
           className
         )}
         ref={ref}
