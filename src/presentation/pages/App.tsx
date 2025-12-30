@@ -21,7 +21,7 @@ function App() {
         <div className="flex flex-row items-center mb-2 justify-between">
           <div className="flex flex-row gap-2 items-center">
             <Isotipo className="w-9" />
-            <h1 className="font-semibold text-lg select-text">Mopi Sound</h1>
+            <h1 className="font-bold text-lg select-text">Mopi Sound</h1>
           </div>
           <Switch mode={mode} setMode={setMode} />
         </div>

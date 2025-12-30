@@ -8,11 +8,12 @@ interface SwitchProps {
 
 export const Switch = ({ mode, setMode }: SwitchProps) => {
   return (
-    <div
+    <button
       onClick={(e) => {
         e.stopPropagation();
         setMode(mode == "audio" ? "video" : "audio");
       }}
+      title={`Descargar ${mode == "audio" ? "música" : "vídeos"}`}
       className="relative flex w-fit rounded-full bg-white p-1.5 gap-1.5"
     >
       {/* Fondo deslizante */}
@@ -45,6 +46,6 @@ export const Switch = ({ mode, setMode }: SwitchProps) => {
           }`}
         />
       </div>
-    </div>
+    </button>
   );
 };
