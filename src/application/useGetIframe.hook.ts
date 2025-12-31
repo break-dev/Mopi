@@ -7,14 +7,15 @@ import type { ErrorResponse } from "../infraestructure/response";
 import { useState } from "react";
 
 export const useGetIframe = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<ErrorResponse>(null);
+  const [url, setUrl] = useState<string>("");
 
-  const get_audio_iframe = async (url: string): Promise<string> => {
+  const get_audio_iframe = async (): Promise<void> => {
+    setIsLoading(true);
+    setError(null);
     let error: ErrorResponse = null;
     let result: string = "";
-    setIsLoading(true);
-    setError(error);
 
     const result_validation = Schema_GetAudioIframe.safeParse({ url });
     if (result_validation.success) {
@@ -35,14 +36,14 @@ export const useGetIframe = () => {
     }
     setError(error);
     setIsLoading(false);
-    return result;
+    setUrl(result);
   };
 
-  const get_video_iframe = async (url: string): Promise<string> => {
+  const get_video_iframe = async (): Promise<void> => {
+    setIsLoading(true);
+    setError(null);
     let error: ErrorResponse = null;
     let result: string = "";
-    setIsLoading(true);
-    setError(error);
 
     const result_validation = Schema_GetVideoIframe.safeParse({ url });
     if (result_validation.success) {
@@ -63,8 +64,8 @@ export const useGetIframe = () => {
     }
     setError(error);
     setIsLoading(false);
-    return result;
+    setUrl(result);
   };
 
-  return { get_audio_iframe, get_video_iframe, isLoading, error };
+  return { get_audio_iframe, get_video_iframe, setUrl, isLoading, error, url };
 };
