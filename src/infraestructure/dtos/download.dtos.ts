@@ -34,3 +34,7 @@ export const Schema_VideoDownload = z.object({
 // DTOS
 export type DTO_AudioDownload = z.infer<typeof Schema_AudioDownload>;
 export type DTO_VideoDownload = z.infer<typeof Schema_VideoDownload>;
+// DTO de response
+export interface RES_GetIframe {
+  url: string;
+}

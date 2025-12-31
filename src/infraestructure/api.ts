@@ -26,7 +26,7 @@ api.interceptors.request.use(
 // interceptor para imprimir respuestas y errores globalmente
 api.interceptors.response.use(
   (response) => {
-    console.log("[API] Respuesta:", response.data);
+    console.log(`[API] Respuesta de ${response.config.url}:`, response.data);
     return response;
   },
   (error) => {
