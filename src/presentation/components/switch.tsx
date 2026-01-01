@@ -14,7 +14,8 @@ export const Switch = ({ mode, setMode }: SwitchProps) => {
         setMode(mode == "audio" ? "video" : "audio");
       }}
       title={`Descargar ${mode == "audio" ? "música" : "vídeos"}`}
-      className="relative flex w-fit rounded-full bg-white p-1.5 gap-1.5"
+      className="relative flex w-fit rounded-full bg-white p-1.5 
+      gap-1.5 focus-visible:outline-emerald-300 cursor-pointer"
     >
       {/* Fondo deslizante */}
       <div

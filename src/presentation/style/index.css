@@ -49,10 +49,6 @@ body,
   padding: 0;
 }
 
-#root {
-  padding-bottom: 16dvh;
-}
-
 @media (min-width: 768px) {
   #root {
     padding-bottom: 18dvh;

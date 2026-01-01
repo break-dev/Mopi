@@ -9,7 +9,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={mixStyle(
           `size-full bg-white text-(--dark-primary) p-2
           focus:bg-emerald-400 active:bg-emerald-500 rounded-md 
-          focus:outline-2 focus:outline-solid focus:outline-(--light-secondary)`,
+          focus:outline-2 focus:outline-solid focus:outline-(--light-secondary)
+          cursor-pointer`,
           className
         )}
         ref={ref}

@@ -9,7 +9,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         type={type}
         className={mixStyle(
           `w-full bg-(--dark-secondary) px-3 py-2.5 focus:outline-2 
-          focus:outline-solid focus:outline-(--light-secondary) rounded-md`,
+          focus:outline-solid focus:outline-(--light-secondary) rounded-md
+          truncate`,
           className
         )}
         ref={ref}

@@ -4,13 +4,20 @@ import {
 } from "../infraestructure/dtos/get_iframe.dtos";
 import { GetIframe } from "../infraestructure/requests/get_iframe";
 import type { ErrorResponse } from "../infraestructure/response";
-import { useState } from "react";
 
-export const useGetIframe = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<ErrorResponse>(null);
-  const [url, setUrl] = useState<string>("");
+interface UseGetIframeProps {
+  url: string;
+  setIsLoading: (isLoading: boolean) => void;
+  setError: (error: ErrorResponse) => void;
+  setIframe: (iframe: string) => void;
+}
 
+export const useGetIframe = ({
+  url,
+  setIsLoading,
+  setError,
+  setIframe,
+}: UseGetIframeProps) => {
   const get_audio_iframe = async (): Promise<void> => {
     setIsLoading(true);
     setError(null);
@@ -36,7 +43,7 @@ export const useGetIframe = () => {
     }
     setError(error);
     setIsLoading(false);
-    setUrl(result);
+    setIframe(result);
   };
 
   const get_video_iframe = async (): Promise<void> => {
@@ -64,8 +71,8 @@ export const useGetIframe = () => {
     }
     setError(error);
     setIsLoading(false);
-    setUrl(result);
+    setIframe(result);
   };
 
-  return { get_audio_iframe, get_video_iframe, setUrl, isLoading, error, url };
+  return { get_audio_iframe, get_video_iframe };
 };

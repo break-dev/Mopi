@@ -4,17 +4,43 @@ import { Input } from "../components/input";
 import { Isotipo } from "../components/isotipo";
 import { Recharge } from "../components/recharge";
 import { Switch } from "../components/switch";
+import type { ErrorResponse } from "../../infraestructure/response";
+import { useGetIframe } from "../../application/useGetIframe.hook";
 
 function App() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<ErrorResponse>(null);
   const [mode, setMode] = useState<"audio" | "video">("audio");
+  const [url, setUrl] = useState<string>("");
+  const [iframe, setIframe] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+
+  const { get_audio_iframe, get_video_iframe } = useGetIframe({
+    url,
+    setIsLoading,
+    setError,
+    setIframe,
+  });
+
+  const handleIframe = () => {
+    if (mode == "audio") {
+      get_audio_iframe();
+    } else {
+      get_video_iframe();
+    }
+  };
 
   return (
     <main
-      className="flex flex-col max-sm:gap-14 sm:gap-16
-      w-full max-w-[600px] px-10"
+      className={`flex flex-col max-sm:gap-14 sm:gap-16
+      w-full max-w-[600px] px-10 ${iframe ? "pb-[4dvh]" : "pb-[16dvh]"}`}
     >
       {/* Isotipo */}
-      <Isotipo className="w-[50dvw] max-w-3xs self-center" />
+      <Isotipo
+        className={`w-[50dvw] max-w-3xs self-center ${
+          iframe ? "w-[28dvw]" : "w-[50dvw]"
+        }`}
+      />
 
       <div className="flex flex-col gap-6">
         {/* Logo */}
@@ -35,12 +61,15 @@ function App() {
               <Input
                 id="link"
                 autoFocus={true}
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://www.youtube.com/..."
                 type="url"
               />
               <Button
                 title="Cargar"
-                className="w-min p-2.5 focus:bg-green-400 active:bg-green-500"
+                className="w-min p-2.5"
+                onClick={handleIframe}
               >
                 <Recharge strokeWidth={2} className="size-6" />
               </Button>
@@ -54,6 +83,13 @@ function App() {
             </label>
             <Input id="title" placeholder="Lipps Inc. - Funkytown" />
           </div>
+
+          {/* Iframe */}
+          {/* https://github.com/ibrahimcesar/react-lite-youtube-embed/blob/main/src/lib/LiteYouTubeEmbed.css */}
+          <iframe
+            className={`w-full h-[24dvh] rounded-md ${iframe ? "" : "hidden"}`}
+            src={iframe}
+          />
 
           {/* Botón para descargar */}
           <Button title="Descargar" className="p-2 mt-2.5 font-semibold">
