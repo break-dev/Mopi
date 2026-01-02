@@ -1,12 +1,12 @@
 import music from "../assets/music.svg";
 import video from "../assets/video.svg";
 
-interface SwitchProps {
+interface SwitchModeProps {
   mode: "audio" | "video";
   setMode: (mode: "audio" | "video") => void;
 }
 
-export const Switch = ({ mode, setMode }: SwitchProps) => {
+export const SwitchMode = ({ mode, setMode }: SwitchModeProps) => {
   return (
     <button
       onClick={(e) => {
