@@ -3,31 +3,31 @@ import { Button } from "../components/button";
 import { Input } from "../components/input";
 import { Isotipo } from "../components/isotipo";
 import { Recharge } from "../components/recharge";
-import { Switch } from "../components/switch";
+import { SwitchMode } from "../components/switch-mode";
 import type { ErrorResponse } from "../../infraestructure/response";
 import { useGetIframe } from "../../application/useGetIframe.hook";
+import { SwitchPlatform } from "../components/switch-platform";
+import { Platforms } from "../../domain/enums";
 
 function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<ErrorResponse>(null);
   const [mode, setMode] = useState<"audio" | "video">("audio");
   const [url, setUrl] = useState<string>("");
+  const [platform, setPlatform] = useState<string>(Platforms.SOUNDCLOUD);
   const [iframe, setIframe] = useState<string>("");
   const [title, setTitle] = useState<string>("");
 
-  const { get_audio_iframe, get_video_iframe } = useGetIframe({
+  const { get_iframe } = useGetIframe({
     url,
+    platform,
     setIsLoading,
     setError,
     setIframe,
   });
 
   const handleIframe = () => {
-    if (mode == "audio") {
-      get_audio_iframe();
-    } else {
-      get_video_iframe();
-    }
+    get_iframe();
   };
 
   return (
@@ -49,7 +49,8 @@ function App() {
             <Isotipo className="w-9" />
             <h1 className="font-bold text-lg select-text">Mopi Sound</h1>
           </div>
-          <Switch mode={mode} setMode={setMode} />
+          <SwitchMode mode={mode} setMode={setMode} />
+          <SwitchPlatform mode={mode} setMode={setMode} />
         </div>
 
         {/* Inputs */}
