@@ -1,49 +1,56 @@
-import music from "../assets/music.svg";
-import video from "../assets/video.svg";
+import youtube from "../assets/youtube.svg";
+import soundcloud from "../assets/soundcloud.png";
 
 interface SwitchPlatformProps {
-  mode: "audio" | "video";
-  setMode: (mode: "audio" | "video") => void;
+  platform: "youtube" | "soundcloud";
+  setPlatform: (platform: "youtube" | "soundcloud") => void;
 }
 
-export const SwitchPlatform = ({ mode, setMode }: SwitchPlatformProps) => {
+export const SwitchPlatform = ({
+  platform,
+  setPlatform,
+}: SwitchPlatformProps) => {
   return (
     <button
       onClick={(e) => {
         e.stopPropagation();
-        setMode(mode == "audio" ? "video" : "audio");
+        setPlatform(platform == "youtube" ? "soundcloud" : "youtube");
       }}
-      title={`Descargar ${mode == "audio" ? "música" : "vídeos"}`}
+      title={`Descargar ${platform == "youtube" ? "música" : "vídeos"}`}
       className="relative flex w-fit rounded-full bg-white p-1.5 
       gap-1.5 focus-visible:outline-emerald-300 cursor-pointer"
     >
       {/* Fondo deslizante */}
       <div
         className={`
-          absolute self-center size-7 scale-[115%] rounded-full bg-green-300
+          absolute self-center size-7 scale-[115%] rounded-full
           transition-transform duration-300 ease-out
-          ${mode == "video" ? "translate-x-8" : "translate-x-0"}
+          ${
+            platform == "soundcloud"
+              ? "bg-orange-400 translate-x-8"
+              : "bg-red-400 translate-x-0"
+          }
         `}
       />
 
-      {/* Audio */}
+      {/* youtube */}
       <div className="relative z-10 flex items-center justify-center rounded-full p-1">
         <img
-          src={music}
+          src={youtube}
           alt="Descargar audio"
           className={`size-5 transition-all duration-100 ease-out opacity-60 ${
-            mode == "audio" && "opacity-100"
+            platform == "youtube" && "opacity-100"
           }`}
         />
       </div>
 
-      {/* Video */}
+      {/* soundcloud */}
       <div className="relative z-10 flex items-center justify-center rounded-full p-1">
         <img
-          src={video}
+          src={soundcloud}
           alt="Descargar video"
           className={`size-5 transition-all duration-100 ease-out opacity-60 ${
-            mode == "video" && "opacity-100"
+            platform == "soundcloud" && "opacity-100"
           }`}
         />
       </div>
