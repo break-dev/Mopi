@@ -1,7 +1,7 @@
 import type { DTO_GetIframe } from "../dtos/get_iframe.dtos";
 import { api } from "../api";
 import type { IRespuesta } from "../response";
-import type { RES_GetIframe } from "../dtos/download.dtos";
+import type { RES_GetIframe } from "../dtos/get_iframe.dtos";
 
 export class GetIframe {
   public static get_iframe = async (

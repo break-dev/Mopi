@@ -44,9 +44,9 @@ export const useGetIframe = ({
     } else {
       error = schema.error.issues.map((i) => i.message);
     }
-    setIsLoading(false);
-    setError(error);
     setIframe(result);
+    setError(error);
+    setIsLoading(false);
   };
 
   return { get_iframe };
