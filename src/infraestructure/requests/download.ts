@@ -12,6 +12,7 @@ export class Download {
     });
 
     const blob = response.data;
+    console.log("headers", response.headers);
     const contentType = response.headers["content-type"];
 
     if (contentType && contentType.includes("application/json")) {
@@ -19,7 +20,7 @@ export class Download {
       return JSON.parse(text) as IRespuesta<RES_Download>;
     }
     const contentDisposition = response.headers["content-disposition"];
-    const filename = getFilename(contentDisposition) || dto.title || "mopi.mp3";
+    const filename = getFilename(contentDisposition) || "mopi.mp3";
 
     return {
       success: true,

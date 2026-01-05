@@ -7,6 +7,7 @@ import { SwitchMode } from "../components/switch-mode";
 import type { ErrorResponse } from "../../infraestructure/response";
 import { useGetIframe } from "../../application/hooks/useGetIframe.hook";
 import LoadingAnimated from "../components/loading-animated";
+import { useDownload } from "../../application/hooks/useDownload.hook";
 
 function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -23,8 +24,19 @@ function App() {
     setIframe,
   });
 
-  const handleIframe = () => {
-    get_iframe();
+  const { download_audio } = useDownload({
+    url,
+    title,
+    setIsLoading,
+    setError,
+  });
+
+  const handleGetIframe = async () => {
+    await get_iframe();
+  };
+
+  const handleDownload = async () => {
+    await download_audio();
   };
 
   return (
@@ -63,11 +75,12 @@ function App() {
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="https://www.youtube.com/..."
                   type="url"
+                  maxLength={2083}
                 />
                 <Button
                   title="Cargar"
                   className="w-min p-2.5"
-                  onClick={handleIframe}
+                  onClick={handleGetIframe}
                 >
                   <Recharge strokeWidth={2} className="size-6" />
                 </Button>
@@ -79,7 +92,14 @@ function App() {
               <label htmlFor="title">
                 Título <span className="text-gray-400">(opc.)</span>
               </label>
-              <Input id="title" placeholder="Lipps Inc. - Funkytown" />
+              <Input
+                id="title"
+                placeholder="Lipps Inc. - Funkytown"
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                type="text"
+                maxLength={64}
+              />
             </div>
 
             {/* Iframe */}
@@ -90,14 +110,18 @@ function App() {
               src={iframe}
             />
 
+            {/* Botón para descargar */}
+            <Button
+              title="Descargar"
+              className="p-2 mt-2 font-semibold"
+              onClick={handleDownload}
+            >
+              Descargar
+            </Button>
+
             <span className={`text-red-500 ${error ? "" : "hidden"}`}>
               {error?.toString()}
             </span>
-
-            {/* Botón para descargar */}
-            <Button title="Descargar" className="p-2 mt-2.5 font-semibold">
-              Descargar
-            </Button>
           </div>
         </div>
       </main>

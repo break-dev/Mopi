@@ -1,31 +1,31 @@
-export default function getFilename(
-  contentDisposition: string | null
-): string | null {
-  if (!contentDisposition) {
-    return null;
-  }
+export default function getFilename(contentDisposition: string): string {
+  console.log("contentDisposition:\n", contentDisposition);
+  if (!contentDisposition) return "";
 
-  let filename: string | null = null;
+  let filename: string = "";
 
-  const filenameStarMatch = /filename\*=(.+)/.exec(contentDisposition);
-  if (filenameStarMatch && filenameStarMatch[1]) {
+  // Busca filename*=
+  const filenameStarMatch = /filename\*=\s*([^;]+)/i.exec(contentDisposition);
+  if (filenameStarMatch?.[1]) {
     try {
-      const encodedFilename = filenameStarMatch[1];
-      const parts = encodedFilename.split("''");
-      if (parts.length > 1) {
-        filename = decodeURIComponent(parts[1]);
+      const value = filenameStarMatch[1].trim();
+      const parts = value.split("'");
+      if (parts.length === 3) {
+        filename = decodeURIComponent(parts[2]);
       } else {
-        filename = decodeURIComponent(encodedFilename);
+        filename = decodeURIComponent(value.replace(/^utf-8''/i, ""));
       }
     } catch (e) {
-      console.warn(e);
+      console.warn("[getFilename] Error decodificando filename*", e);
     }
   }
 
   if (!filename) {
-    const simpleFilenameMatch = /filename="([^"]+)"/.exec(contentDisposition);
-    if (simpleFilenameMatch && simpleFilenameMatch[1]) {
-      filename = simpleFilenameMatch[1];
+    const simpleMatch = /filename=\s*["']?([^"';]+)["']?/i.exec(
+      contentDisposition
+    );
+    if (simpleMatch?.[1]) {
+      filename = simpleMatch[1].trim();
     }
   }
 
