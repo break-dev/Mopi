@@ -24,7 +24,7 @@ function App() {
     setIframe,
   });
 
-  const { download_audio } = useDownload({
+  const { download_audio, download_video } = useDownload({
     url,
     title,
     setIsLoading,
@@ -36,14 +36,18 @@ function App() {
   };
 
   const handleDownload = async () => {
-    await download_audio();
+    if (mode === "audio") {
+      await download_audio();
+    } else {
+      await download_video();
+    }
   };
 
   return (
     <>
       <main
-        className={`flex flex-col max-sm:gap-14 sm:gap-16
-        w-full max-w-[600px] px-10 ${iframe ? "pb-[4dvh]" : "pb-[16dvh]"}`}
+        className={`flex flex-col max-sm:gap-11 sm:gap-16
+        w-full max-w-[600px] px-10 ${iframe ? "pb-[2dvh]" : "pb-[16dvh]"}`}
       >
         {/* Isotipo */}
         <Isotipo

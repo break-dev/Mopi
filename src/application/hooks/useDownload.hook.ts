@@ -62,7 +62,43 @@ export const useDownload = ({
     setIsLoading(false);
   };
 
-  const download_video = async () => {};
+  const download_video = async () => {
+    const platform = platformAnalyzer(url);
+    if (!platform) {
+      return setError("Plataforma no soportada");
+    }
+    else if (platform == "soundcloud") {
+      return setError("Plataforma no soportada para video");
+    }
+
+    setIsLoading(true);
+    setError(null);
+    let error: ErrorResponse = null;
+
+    const schema = Schema_Download.safeParse({
+      url,
+      title: title.trim() || undefined,
+      platform,
+    });
+
+    if (schema.success) {
+      try {
+        const response = await Download.download_video(schema.data);
+        if (response.success && response.data) {
+          handleBlobDownload(response.data);
+        } else {
+          error = response.error || "Error desconocido al descargar";
+        }
+      } catch {
+        error = "Ups! Hubo un error...";
+      }
+    } else {
+      error = schema.error.issues.map((i) => i.message);
+    }
+
+    setError(error);
+    setIsLoading(false);
+  };
 
   return {
     download_audio,
