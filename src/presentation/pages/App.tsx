@@ -5,8 +5,7 @@ import { Isotipo } from "../components/isotipo";
 import { Recharge } from "../components/recharge";
 import { SwitchMode } from "../components/switch-mode";
 import type { ErrorResponse } from "../../infraestructure/response";
-import { useGetIframe } from "../../application/useGetIframe.hook";
-import { SwitchPlatform } from "../components/switch-platform";
+import { useGetIframe } from "../../application/hooks/useGetIframe.hook";
 import LoadingAnimated from "../components/loading-animated";
 
 function App() {
@@ -14,13 +13,11 @@ function App() {
   const [error, setError] = useState<ErrorResponse>(null);
   const [url, setUrl] = useState<string>("");
   const [mode, setMode] = useState<"audio" | "video">("audio");
-  const [platform, setPlatform] = useState<"youtube" | "soundcloud">("youtube");
   const [iframe, setIframe] = useState<string>("");
   const [title, setTitle] = useState<string>("");
 
   const { get_iframe } = useGetIframe({
     url,
-    platform,
     setIsLoading,
     setError,
     setIframe,
@@ -38,8 +35,8 @@ function App() {
       >
         {/* Isotipo */}
         <Isotipo
-          className={`w-[50dvw] max-w-3xs self-center animate-glow ${
-            iframe ? "w-[28dvw]" : "w-[50dvw]"
+          className={`w-[48dvw] max-w-3xs self-center animate-glow ${
+            iframe ? "w-[28dvw]" : "w-[48dvw]"
           }`}
         />
 
@@ -50,10 +47,7 @@ function App() {
               <Isotipo className="w-9" />
               <h1 className="font-bold text-lg select-text">Mopi Sound</h1>
             </div>
-            <div className="flex flex-row gap-2">
-              <SwitchPlatform platform={platform} setPlatform={setPlatform} />
-              <SwitchMode mode={mode} setMode={setMode} />
-            </div>
+            <SwitchMode mode={mode} setMode={setMode} />
           </div>
 
           {/* Inputs */}
@@ -95,6 +89,10 @@ function App() {
               }`}
               src={iframe}
             />
+
+            <span className={`text-red-500 ${error ? "" : "hidden"}`}>
+              {error?.toString()}
+            </span>
 
             {/* Botón para descargar */}
             <Button title="Descargar" className="p-2 mt-2.5 font-semibold">
